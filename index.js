@@ -9,6 +9,8 @@ async function getApiKey() {
   const secretName = `projects/${process.env.PROJECT_ID}/secrets/web3-api-key/versions/latest`;
   const client = new SecretManagerServiceClient();
   const [version] = await client.accessSecretVersion({ name: secretName });
+  console.log("line 12");
+  console.log(version.payload.data.toString());
   return version.payload.data.toString();
 }
 //com
