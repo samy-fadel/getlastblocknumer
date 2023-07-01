@@ -13,7 +13,7 @@ async function getApiKey() {
   console.log(version.payload.data.toString());
   return version.payload.data.toString();
 }
-//com
+
 async function publishLatestBlockNumber() {
   try {
     const topicName = 'latest-blocknumber-topic';
