@@ -16,14 +16,18 @@ steps:
     env:
       - 'REGION=europe-west1'
 
-  # Deploy the image to Cloud Run
+   # Deploy the image as a Cloud Run job
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
+      - 'beta'
       - 'run'
-      - 'deploy'
+      - 'jobs'
+      - 'create'
       - 'publishlatestblocknumbertopubsub'
       - '--image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image'
-      - '--platform=managed'
       - '--region=europe-west1'
-      - '--allow-unauthenticated'
+      - '--platform=managed'
+      - '--set-env-vars=PROJECT_ID=$PROJECT_ID'
+
+timeout: 600s
