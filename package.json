@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install"
-
   },
   "repository": {
     "type": "git",
@@ -19,8 +18,8 @@
   },
   "homepage": "https://github.com/samy-fadel/web3eth#readme",
   "dependencies": {
+    "@google-cloud/secret-manager": "^4.2.2",
     "firebase-admin": "^11.9.0",
-    "web3": "^1.0.0",
-    "@google-cloud/secret-manager": "^4.2.2"
+    "web3": "^1.0.0"
   }
 }
