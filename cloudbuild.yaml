@@ -1,0 +1,29 @@
+steps:
+ 
+
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image', '.']
+    env:
+      - 'REGION=europe-west1'
+
+  # Push the Docker image to Google Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image']
+    env:
+      - 'REGION=europe-west1'
+
+  # Deploy the image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'my-cloud-run-service'
+      - '--image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image'
+      - '--platform=managed'
+      - '--region=europe-west1'
+      - '--allow-unauthenticated'
