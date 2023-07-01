@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 const { PubSub } = require('@google-cloud/pubsub');
-console.log(process.env.PROJECT_ID);
+console.log('projet id ' , process.env.PROJECT_ID);
 
 const pubsub = new PubSub({ projectId: process.env.PROJECT_ID });
 
