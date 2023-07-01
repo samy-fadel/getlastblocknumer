@@ -16,6 +16,7 @@ async function publishLatestBlockNumber() {
   try {
     const topicName = 'latest-blocknumber-topic';
     const apiKey = await getApiKey();
+    console.log(apiKey);
     const web3 = new Web3(`http://json-rpc.2mnk2ypckfrt988whmbu8lc8n.blockchainnodeengine.com?key=${apiKey}`);
     const blockNumber = await web3.eth.getBlockNumber();
     console.log('Latest block number:', blockNumber);
