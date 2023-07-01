@@ -10,7 +10,7 @@ async function getApiKey() {
   const [version] = await client.accessSecretVersion({ name: secretName });
   return version.payload.data.toString();
 }
-
+//com
 async function publishLatestBlockNumber() {
   try {
     const topicName = 'latest-blocknumber-topic';
