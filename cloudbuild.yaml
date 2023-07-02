@@ -1,6 +1,4 @@
 steps:
- 
-
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
 
@@ -16,17 +14,22 @@ steps:
     env:
       - 'REGION=europe-west1'
 
-   # Deploy the image as a Cloud Run job
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
+  # Custom script to create or update the Cloud Run job based on job existence
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
     args:
-      - 'beta'
-      - 'run'
-      - 'jobs'
-      - '${' + ('1' if `echo $${_CHECK_JOB_EXISTS} | grep -q "ERROR:"; echo $$?` else '2') + '}'  # If job exists, use 'update', else use 'create'
-      - 'publishlatestblocknumbertopubsub'
-      - '--image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image'
-      - '--region=europe-west1'
-      - '--set-env-vars=PROJECT_ID=$PROJECT_ID,PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format=value(projectNumber))'
+      - '-c'
+      - |
+        if gcloud beta run jobs describe publishlatestblocknumbertopubsub --platform=managed --region=europe-west1 &> /dev/null; then
+          gcloud beta run jobs update publishlatestblocknumbertopubsub \
+            --image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image \
+            --region=europe-west1 \
+            --set-env-vars=PROJECT_ID=$PROJECT_ID,PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format=value(projectNumber))
+        else
+          gcloud beta run jobs create publishlatestblocknumbertopubsub \
+            --image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image \
+            --region=europe-west1 \
+            --set-env-vars=PROJECT_ID=$PROJECT_ID,PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format=value(projectNumber))
+        fi
 
 timeout: 600s
