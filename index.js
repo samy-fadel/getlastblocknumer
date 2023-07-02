@@ -6,7 +6,7 @@ console.log('projet id ' , process.env.PROJECT_ID);
 const pubsub = new PubSub({ projectId: process.env.PROJECT_ID });
 
 async function getApiKey() {
-  const secretName = `projects/313448361902/secrets/web3-api-key/versions/latest`;
+  const secretName = `projects/${process.env.PROJECT_NUMBER}/secrets/web3-api-key/versions/latest`;
   const client = new SecretManagerServiceClient();
   const [version] = await client.accessSecretVersion({ name: secretName });
   console.log("line 12");
@@ -19,7 +19,7 @@ async function publishLatestBlockNumber() {
     const topicName = 'latest-blocknumber-topic';
     const apiKey = await getApiKey();
     console.log(apiKey);
-    const web3 = new Web3(`http://json-rpc.2mnk2ypckfrt988whmbu8lc8n.blockchainnodeengine.com?key=${apiKey}`);
+    const web3 = new Web3(`https://mainnet.infura.io/v3/${apiKey}`);
     const blockNumber = await web3.eth.getBlockNumber();
     console.log('Latest block number:', blockNumber);
     const data = Buffer.from(JSON.stringify({ blockNumber }));
