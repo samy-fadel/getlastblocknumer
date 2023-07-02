@@ -16,7 +16,7 @@ steps:
     env:
       - 'REGION=europe-west1'
 
-   # Deploy the image as a Cloud Run job
+   # Deploy the image as a Cloud Run job ok
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
