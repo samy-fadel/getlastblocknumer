@@ -1,6 +1,4 @@
 steps:
- 
-
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
 
@@ -16,7 +14,7 @@ steps:
     env:
       - 'REGION=europe-west1'
 
-   # Deploy the image as a Cloud Run job
+  # Deploy the image as a Cloud Run job
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
@@ -27,6 +25,6 @@ steps:
       - 'publishlatestblocknumbertopubsub'
       - '--image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image'
       - '--region=europe-west1'
-      - '--set-env-vars=PROJECT_ID=$PROJECT_ID,PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')'
+      - '--set-env-vars=PROJECT_ID=$PROJECT_ID,PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format=value(projectNumber))'
 
 timeout: 600s
