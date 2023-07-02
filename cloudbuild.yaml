@@ -8,7 +8,7 @@ steps:
     env:
       - 'REGION=europe-west1'
 
-  # Push the Docker image to Google Artifact Registry
+  # Push the Docker image to Google Artifact Registryy
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image']
     env:
