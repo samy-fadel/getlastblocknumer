@@ -23,10 +23,10 @@ steps:
       - 'beta'
       - 'run'
       - 'jobs'
-      - 'create'
+      - '${' + ('1' if `echo $${_CHECK_JOB_EXISTS} | grep -q "ERROR:"; echo $$?` else '2') + '}'  # If job exists, use 'update', else use 'create'
       - 'publishlatestblocknumbertopubsub'
       - '--image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image'
       - '--region=europe-west1'
-      - '--set-env-vars=PROJECT_ID=$PROJECT_ID'
+      - '--set-env-vars=PROJECT_ID=$PROJECT_ID,PROJECT_NUMBER=$PROJECT_NUMBER'
 
 timeout: 600s
