@@ -23,7 +23,7 @@ steps:
       - 'beta'
       - 'run'
       - 'jobs'
-      - '${' + ('1' if `echo $${_CHECK_JOB_EXISTS} | grep -q "ERROR:"; echo $$?` else '2') + '}'  # If job exists, use 'update', else use 'create'
+      - 'create'
       - 'publishlatestblocknumbertopubsub'
       - '--image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image'
       - '--region=europe-west1'
