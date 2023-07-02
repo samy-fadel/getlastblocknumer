@@ -26,5 +26,7 @@ steps:
       - '--image=europe-west1-docker.pkg.dev/gkemedium/ethereum/getlastblocknumber-image'
       - '--region=europe-west1'
       - '--set-env-vars=PROJECT_ID=$PROJECT_ID,PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format=value(projectNumber))'
+      - '--service-account=313448361902-compute@developer.gserviceaccount.com'
+
 
 timeout: 600s
