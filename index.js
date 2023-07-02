@@ -6,7 +6,7 @@ console.log('projet id ' , process.env.PROJECT_ID);
 const pubsub = new PubSub({ projectId: process.env.PROJECT_ID });
 
 async function getApiKey() {
-  const secretName = `projects/${process.env.PROJECT_ID}/secrets/web3-api-key/versions/latest`;
+  const secretName = `projects/${process.env.PROJECT_NUMBER}/secrets/web3-api-key/versions/latest`;
   const client = new SecretManagerServiceClient();
   const [version] = await client.accessSecretVersion({ name: secretName });
   console.log("line 12");
